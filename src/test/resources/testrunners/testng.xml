@@ -1,0 +1,35 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="TestNG Groups Example Suite">
+	<test name="Sanity Tests">
+		<groups>
+			<run>
+				<include name="sanity" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qa.opencart.tests.TestGroupsExample" />
+		</classes>
+	</test>
+
+	<test name="Regression Tests">
+		<groups>
+			<run>
+				<include name="regression" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qa.opencart.tests.TestGroupsExample" />
+		</classes>
+	</test>
+
+	<test name="Functional Tests">
+		<groups>
+			<run>
+				<include name="functional" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.qa.opencart.tests.TestGroupsExample" />
+		</classes>
+	</test>
+</suite>
