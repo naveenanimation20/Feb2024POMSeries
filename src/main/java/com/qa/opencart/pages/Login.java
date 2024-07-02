@@ -9,7 +9,11 @@ public class Login {
 	public void main() {
 		System.out.println("main -- naveen");
 	}
-	
+
+	public void doLogin() {
+		System.out.println("Jay - login");
+		String un = "admin";
+	}
 	
 	
 	
