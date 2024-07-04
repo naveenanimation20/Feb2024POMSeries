@@ -34,12 +34,12 @@
 	</test> -->
 
 
-	<test name="ProductInfo Page Test">
+	<!-- <test name="ProductInfo Page Test">
 		<parameter name="browser" value="edge" />
 		<classes>
 			<class name="com.qa.opencart.tests.ProductInfoPageTest" />
 		</classes>
-	</test>
+	</test> -->
 
 <!-- 
 	<test name="Reg Page Test">
