@@ -146,17 +146,31 @@ public class DriverFactory {
 		
 		File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);//temp location
 		
-		String path = System.getProperty("user.dir")+"/screenshots/"+methodName+"_"+System.currentTimeMillis()+".png";
-		
-		File destination = new File(path);
-		
-		try {
-			FileHandler.copy(srcFile, destination);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return path;
+		// Define the path for the screenshots folder
+        String screenshotsDirPath = System.getProperty("user.dir") + "/screenshots";
+        
+        // Create the screenshots folder if it doesn't exist
+        File screenshotsDir = new File(screenshotsDirPath);
+        if (!screenshotsDir.exists()) {
+            if (screenshotsDir.mkdirs()) {
+                System.out.println("Folder 'screenshots' created successfully at: " + screenshotsDirPath);
+            } else {
+                System.out.println("Failed to create the folder 'screenshots' at: " + screenshotsDirPath);
+            }
+        }
+
+        // Define the destination path for the screenshot
+        String screenshotPath = screenshotsDirPath + "/" + methodName + "_" + System.currentTimeMillis() + ".png";
+        File destination = new File(screenshotPath);
+
+        // Copy the screenshot to the destination path
+        try {
+            FileHandler.copy(srcFile, destination);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return screenshotPath;
 	}
 	
 	

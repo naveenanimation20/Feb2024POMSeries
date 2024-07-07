@@ -1,6 +1,6 @@
 allure-results/
-#screenshots/
-#screenshot/
+screenshots/
+screenshot/
 test-output/
 build/
 reports/
