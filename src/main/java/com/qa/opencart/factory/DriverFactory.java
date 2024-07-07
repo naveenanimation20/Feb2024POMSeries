@@ -174,7 +174,7 @@ public class DriverFactory {
             e.printStackTrace();
         }
 
-        return screenshotPath;
+        return destination.getAbsolutePath();
 	}
 	
 	
