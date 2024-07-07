@@ -144,9 +144,13 @@ public class DriverFactory {
 	
 	public static String getScreenshot(String methodName) {
 		
-		File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);//temp location
-		
-		// Define the path for the screenshots folder
+		// Get the driver instance
+        TakesScreenshot screenshotTaker = (TakesScreenshot) getDriver();
+        
+        // Take the screenshot and save it to a temporary location
+        File srcFile = screenshotTaker.getScreenshotAs(OutputType.FILE);
+        
+        // Define the path for the screenshots folder
         String screenshotsDirPath = System.getProperty("user.dir") + "/screenshots";
         
         // Create the screenshots folder if it doesn't exist
