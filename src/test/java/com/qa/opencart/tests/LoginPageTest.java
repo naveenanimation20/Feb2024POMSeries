@@ -50,7 +50,7 @@ public class LoginPageTest extends BaseTest {
 		Assert.assertTrue(loginPage.checkForgotPwdLinkExist(), AppError.ELEMENT_NOT_FOUND);
 	}
 
-	@Description("checking user is able to login successfully ----")
+	@Description("checking user is able to login to app successfully ----")
 	@Severity(SeverityLevel.BLOCKER)
 	@Owner("Naveen Automation Labs")
 	@Test(priority = 4)
