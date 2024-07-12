@@ -69,8 +69,8 @@ pipeline {
                 }
             }
             post {
-                failure {
-                    error("Publish Allure Reports stage failed. Aborting pipeline.")
+                always {
+                    echo "Publishing Allure Reports"
                 }
             }
         }
@@ -86,8 +86,8 @@ pipeline {
                     reportTitles: ''])
             }
             post {
-                failure {
-                    error("Publish Extent Report stage failed. Aborting pipeline.")
+                always {
+                    echo "Publishing Extent Reports"
                 }
             }
         }
@@ -126,10 +126,16 @@ pipeline {
                     reportTitles: ''])
             }
             post {
-                failure {
-                    error("Publish sanity Extent Report stage failed. Aborting pipeline.")
+                always {
+                    echo "Publishing Sanity Extent Reports"
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will run after all stages, regardless of the build result'
         }
     }
 }
