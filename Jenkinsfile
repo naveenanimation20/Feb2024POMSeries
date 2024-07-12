@@ -17,41 +17,60 @@ pipeline {
                     archiveArtifacts 'target/*.jar'
                 }
                 failure {
-                    echo "Build stage failed."
+                    script {
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
         }
 
         stage("Deploy to Dev") {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 echo "deploy to Dev"
             }
             post {
                 failure {
-                    echo "Deploy to Dev stage failed."
+                    script {
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
         }
 
         stage("Deploy to QA") {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 echo "deploy to qa"
             }
             post {
                 failure {
-                    echo "Deploy to QA stage failed."
+                    script {
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
         }
 
         stage('Run Regression Automation Tests') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
-                git 'https://github.com/naveenanimation20/Feb2024POMSeries.git'
-                sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/test_regression.xml"
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/naveenanimation20/Feb2024POMSeries.git'
+                    sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/test_regression.xml"
+                }
             }
             post {
                 failure {
-                    echo "Run Regression Automation Tests stage failed."
+                    script {
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
         }
@@ -68,11 +87,6 @@ pipeline {
                     ])
                 }
             }
-            post {
-                always {
-                    echo "Publishing Allure Reports"
-                }
-            }
         }
 
         stage('Publish Extent Report') {
@@ -85,32 +99,39 @@ pipeline {
                     reportName: 'HTML Regression Extent Report',
                     reportTitles: ''])
             }
-            post {
-                always {
-                    echo "Publishing Extent Reports"
-                }
-            }
         }
 
         stage("Deploy to Stage") {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 echo "deploy to Stage"
             }
             post {
                 failure {
-                    echo "Deploy to Stage stage failed."
+                    script {
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
         }
 
         stage('Run Sanity Automation Tests') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
-                git 'https://github.com/naveenanimation20/Feb2024POMSeries.git'
-                sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/test_sanity.xml"
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/naveenanimation20/Feb2024POMSeries.git'
+                    sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/test_sanity.xml"
+                }
             }
             post {
                 failure {
-                    echo "Run Sanity Automation Tests stage failed."
+                    script {
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
         }
@@ -125,11 +146,12 @@ pipeline {
                     reportName: 'HTML Sanity Extent Report',
                     reportTitles: ''])
             }
-            post {
-                always {
-                    echo "Publishing Sanity Extent Reports"
-                }
-            }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will run after all stages, regardless of the build result'
         }
     }
 }
