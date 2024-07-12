@@ -159,9 +159,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo 'This will run after all stages, regardless of the build result'
-        }
-    }
+    
 }
