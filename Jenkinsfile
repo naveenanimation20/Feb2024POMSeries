@@ -137,6 +137,9 @@ pipeline {
         }
 
         stage('Publish sanity Extent Report') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 publishHTML([allowMissing: false,
                     alwaysLinkToLastBuild: false,
