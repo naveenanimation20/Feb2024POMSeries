@@ -17,7 +17,7 @@ pipeline {
                     archiveArtifacts 'target/*.jar'
                 }
                 failure {
-                    error("Build stage failed. Aborting pipeline.")
+                    echo "Build stage failed."
                 }
             }
         }
@@ -28,7 +28,7 @@ pipeline {
             }
             post {
                 failure {
-                    error("Deploy to Dev stage failed. Aborting pipeline.")
+                    echo "Deploy to Dev stage failed."
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
             }
             post {
                 failure {
-                    error("Deploy to QA stage failed. Aborting pipeline.")
+                    echo "Deploy to QA stage failed."
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
             }
             post {
                 failure {
-                    error("Run Regression Automation Tests stage failed. Aborting pipeline.")
+                    echo "Run Regression Automation Tests stage failed."
                 }
             }
         }
@@ -98,7 +98,7 @@ pipeline {
             }
             post {
                 failure {
-                    error("Deploy to Stage stage failed. Aborting pipeline.")
+                    echo "Deploy to Stage stage failed."
                 }
             }
         }
@@ -110,7 +110,7 @@ pipeline {
             }
             post {
                 failure {
-                    error("Run Sanity Automation Tests stage failed. Aborting pipeline.")
+                    echo "Run Sanity Automation Tests stage failed."
                 }
             }
         }
@@ -130,12 +130,6 @@ pipeline {
                     echo "Publishing Sanity Extent Reports"
                 }
             }
-        }
-    }
-
-    post {
-        always {
-            echo 'This will run after all stages, regardless of the build result'
         }
     }
 }
