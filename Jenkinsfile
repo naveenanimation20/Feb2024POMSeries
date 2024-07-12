@@ -7,7 +7,6 @@ pipeline {
 
     stages {
         stage('Build') {
-            failFast true
             steps {
                 git 'https://github.com/jglick/simple-maven-project-with-tests.git'
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
@@ -17,35 +16,49 @@ pipeline {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archiveArtifacts 'target/*.jar'
                 }
+                failure {
+                    error("Build stage failed. Aborting pipeline.")
+                }
             }
         }
 
         stage("Deploy to Dev") {
-            failFast true
             steps {
                 echo "deploy to Dev"
+            }
+            post {
+                failure {
+                    error("Deploy to Dev stage failed. Aborting pipeline.")
+                }
             }
         }
 
         stage("Deploy to QA") {
-            failFast true
             steps {
                 echo "deploy to qa"
+            }
+            post {
+                failure {
+                    error("Deploy to QA stage failed. Aborting pipeline.")
+                }
             }
         }
 
         stage('Run Regression Automation Tests') {
-            failFast true
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/naveenanimation20/Feb2024POMSeries.git'
                     sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/test_regression.xml"
                 }
             }
+            post {
+                failure {
+                    error("Run Regression Automation Tests stage failed. Aborting pipeline.")
+                }
+            }
         }
 
         stage('Publish Allure Reports') {
-            failFast true
             steps {
                 script {
                     allure([
@@ -57,10 +70,14 @@ pipeline {
                     ])
                 }
             }
+            post {
+                failure {
+                    error("Publish Allure Reports stage failed. Aborting pipeline.")
+                }
+            }
         }
 
         stage('Publish Extent Report') {
-            failFast true
             steps {
                 publishHTML([allowMissing: false,
                     alwaysLinkToLastBuild: false,
@@ -70,27 +87,39 @@ pipeline {
                     reportName: 'HTML Regression Extent Report',
                     reportTitles: ''])
             }
+            post {
+                failure {
+                    error("Publish Extent Report stage failed. Aborting pipeline.")
+                }
+            }
         }
 
         stage("Deploy to Stage") {
-            failFast true
             steps {
                 echo "deploy to Stage"
+            }
+            post {
+                failure {
+                    error("Deploy to Stage stage failed. Aborting pipeline.")
+                }
             }
         }
 
         stage('Run Sanity Automation Tests') {
-            failFast true
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/naveenanimation20/Feb2024POMSeries.git'
                     sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/test_sanity.xml"
                 }
             }
+            post {
+                failure {
+                    error("Run Sanity Automation Tests stage failed. Aborting pipeline.")
+                }
+            }
         }
 
         stage('Publish sanity Extent Report') {
-            failFast true
             steps {
                 publishHTML([allowMissing: false,
                     alwaysLinkToLastBuild: false,
@@ -99,6 +128,11 @@ pipeline {
                     reportFiles: 'TestExecutionReport.html',
                     reportName: 'HTML Sanity Extent Report',
                     reportTitles: ''])
+            }
+            post {
+                failure {
+                    error("Publish sanity Extent Report stage failed. Aborting pipeline.")
+                }
             }
         }
     }
