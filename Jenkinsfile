@@ -5,6 +5,10 @@ pipeline {
         maven 'maven'
     }
 
+    environment {
+        SANITY_TESTS_RAN = false
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -126,6 +130,9 @@ pipeline {
                     git 'https://github.com/naveenanimation20/Feb2024POMSeries.git'
                     sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/test_sanity.xml"
                 }
+                script {
+                    env.SANITY_TESTS_RAN = true
+                }
             }
             post {
                 failure {
@@ -138,7 +145,7 @@ pipeline {
 
         stage('Publish sanity Extent Report') {
             when {
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+                expression { env.SANITY_TESTS_RAN == 'true' }
             }
             steps {
                 publishHTML([allowMissing: false,
