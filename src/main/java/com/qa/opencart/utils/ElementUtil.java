@@ -22,7 +22,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.qa.opencart.exceptions.ElementException;
 import com.qa.opencart.factory.DriverFactory;
 
-import io.qameta.allure.Step;
 
 /**
  * 
@@ -62,20 +61,17 @@ public class ElementUtil {
 		getElement(locator).sendKeys(value);
 	}
 
-	@Step("Entering value {1} in text field using locator : {0} and waiting for element with : {2} secs")
 	public void doSendKeys(By locator, String value, int timeOut) {
 		nullCheck(value);
 		waitForElementVisible(locator, timeOut).clear();
 		waitForElementVisible(locator, timeOut).sendKeys(value);
 	}
 
-	@Step("Entering value {1} in text field using locator : {0}")
 	public void doSendKeys(By locator, CharSequence... value) {
 		getElement(locator).clear();
 		getElement(locator).sendKeys(value);
 	}
 
-	@Step("finding the element using locator : {0}")
 	public WebElement getElement(By locator) {
 		try {
 			WebElement element = driver.findElement(locator);
@@ -88,7 +84,6 @@ public class ElementUtil {
 		}
 	}
 
-	@Step("clicking on element using locator: {0}")
 	public void doClick(By locator) {
 		getElement(locator).click();
 	}
@@ -105,7 +100,6 @@ public class ElementUtil {
 		return getElement(locator).getAttribute(attrName);
 	}
 
-	@Step("checking the state of locator: {0} is displayed or not..")
 	public boolean doIsDisplayed(By locator) {
 		try {
 			boolean flag = getElement(locator).isDisplayed();
@@ -455,7 +449,6 @@ public class ElementUtil {
 		return driver.getTitle();
 	}
 
-	@Step("waiting for the title and capturing it...")
 	public String waitForTitleToBe(String titleVal, int timeOut) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
 
@@ -589,5 +582,11 @@ public class ElementUtil {
 
 	// click
 	// isPageLoaded -- new page
+	
+	public void naveenClick() {
+		System.out.println("click");
+	}
+	
+	
 
 }

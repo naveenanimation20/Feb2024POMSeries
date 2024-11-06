@@ -7,7 +7,6 @@ import com.qa.opencart.constants.AppConstants;
 import com.qa.opencart.utils.ElementUtil;
 import com.qa.opencart.utils.TimeUtil;
 
-import io.qameta.allure.Step;
 
 public class LoginPage {
 
@@ -29,26 +28,22 @@ public class LoginPage {
 	}
 
 	// 3. public page actions/methods
-	@Step("getting login page title value...")
 	public String getLoginPageTitle() {
 		String title = eleUtil.waitForTitleToBe(AppConstants.LOGIN_PAGE_TITLE, TimeUtil.DEFAULT_TIME);
 		System.out.println("login page title : " + title);
 		return title;
 	}
 
-	@Step("getting login page URL...")
 	public String getLoginPageURL() {
 		String url = eleUtil.waitForURLContains(AppConstants.LOGIN_PAGE_FRACTION_URL, TimeUtil.DEFAULT_TIME);
 		System.out.println("login page url : " + url);
 		return url;
 	}
 
-	@Step("getting the state of forgot pwd link exist...")
 	public boolean checkForgotPwdLinkExist() {
 		return eleUtil.doIsDisplayed(forgotPwdLink);
 	}
 
-	@Step("login to application with username: {0} and password: {1}")
 	public AccountsPage doLogin(String username, String pwd) {
 		System.out.println("user creds : " + username + ":" + pwd);
 		eleUtil.doSendKeys(emailId, username, TimeUtil.DEFAULT_MEDIUM_TIME);
@@ -58,7 +53,6 @@ public class LoginPage {
 
 	}
 
-	@Step("navigating to register page...")
 	public RegisterPage navigateToRegisterPage() {
 		eleUtil.doClick(registerLink, TimeUtil.DEFAULT_TIME);
 		return new RegisterPage(driver);

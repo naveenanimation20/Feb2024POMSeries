@@ -10,7 +10,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import io.qameta.allure.Allure;
 
 public class ExcelUtil {
 	
@@ -47,14 +46,7 @@ public class ExcelUtil {
 		
 	}
 	
-	public static void attachTestData() {
-        File file = new File(TEST_DATA_SHEET_PATH);
-        try (FileInputStream fis = new FileInputStream(file)) {
-            Allure.addAttachment("Test Data", fis);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 	
 	
 	

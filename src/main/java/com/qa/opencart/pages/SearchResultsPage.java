@@ -22,8 +22,7 @@ public class SearchResultsPage {
 	}
 	
 	public int getSearchResultsCount() {
-		
-		List<WebElement> resultsList = 
+		List<WebElement> resultsList =
 				eleUtil.waitForVisibilityOfElemenetsLocated(searchResult, TimeUtil.DEFAULT_MEDIUM_TIME);
 		
 		int resultCount = resultsList.size();//0
