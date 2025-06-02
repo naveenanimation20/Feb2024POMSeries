@@ -1,4 +1,4 @@
-package parallel;
+package steps;
 
 import com.qa.opencart.factory.DriverFactory;
 import com.qa.opencart.pages.LoginPage;
@@ -39,7 +39,8 @@ public class Hooks {
     }
 
     public Properties getProperties() {
-
         return prop;
     }
+
+
 }

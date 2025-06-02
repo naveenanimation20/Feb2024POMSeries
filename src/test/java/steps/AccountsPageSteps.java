@@ -1,4 +1,4 @@
-package parallel;
+package steps;
 
 import com.qa.opencart.pages.AccountsPage;
 import com.qa.opencart.pages.LoginPage;
@@ -39,6 +39,7 @@ public class AccountsPageSteps {
 
     @Then("the page headers should be:")
     public void the_page_headers_should_be(DataTable expectedHeadersTable) {
+        //datatable ---> List<String>
         List<String> expectedHeaders = expectedHeadersTable.asList();
         Assert.assertEquals(expectedHeaders, headers);
     }

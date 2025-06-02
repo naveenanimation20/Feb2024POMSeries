@@ -43,7 +43,6 @@ public class DriverFactory {
 		System.out.println("browser name is : " + browserName);
 
 		highlight = prop.getProperty("highlight");
-
 		optionsManager = new OptionsManager(prop);
 
 		switch (browserName.toLowerCase().trim()) {

@@ -1,6 +1,6 @@
 Feature: Accounts Page
 
-  @accounts
+  @accounts @regression
   Scenario: Verify the headers on the accounts page
     Given the user is logged in and on the accounts page
     When the user checks the page headers
@@ -10,7 +10,7 @@ Feature: Accounts Page
       | My Affiliate Account |
       | Newsletter |
 
-  @accounts
+  @accounts @regression
   Scenario Outline: Verify the search functionality on the accounts page
     Given the user is logged in and on the accounts page
     When the user searches for "<searchKey>"

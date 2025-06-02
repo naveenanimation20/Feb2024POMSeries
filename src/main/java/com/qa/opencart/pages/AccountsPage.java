@@ -50,7 +50,6 @@ public class AccountsPage {
 	}
 
 	public List<String> getAccPageHeaders() {
-
 		List<WebElement> headersList = eleUtil.waitForVisibilityOfElemenetsLocated(headers, TimeUtil.DEFAULT_MEDIUM_TIME);
 		List<String> headersValList = new ArrayList<String>();
 		for (WebElement e : headersList) {

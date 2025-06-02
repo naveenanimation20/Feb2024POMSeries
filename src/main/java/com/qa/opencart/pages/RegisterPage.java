@@ -34,8 +34,9 @@ public class RegisterPage {
 	private By logoutLink = By.linkText("Logout");
 	private By registerLink = By.linkText("Register");
 
-	public boolean userRegister(String firstName, String lastName, String email, String telephone, String password,
-			String subscribe) {
+	public boolean userRegister(String firstName, String lastName,
+								String email, String telephone, String password,
+								String subscribe) {
 
 		eleUtil.doSendKeys(this.firstName, firstName, TimeUtil.DEFAULT_MEDIUM_TIME);
 		eleUtil.doSendKeys(this.lastName, lastName);

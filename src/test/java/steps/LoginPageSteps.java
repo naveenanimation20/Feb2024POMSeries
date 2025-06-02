@@ -1,4 +1,4 @@
-package parallel;
+package steps;
 
 import com.qa.opencart.constants.AppConstants;
 import com.qa.opencart.pages.AccountsPage;
@@ -7,15 +7,17 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import utils.ScenarioContext;
 
 public class LoginPageSteps {
 
     private LoginPage loginPage;
     private AccountsPage accPage;
-    private Hooks hooks;
+    private ScenarioContext scenarioContext;
 
-    public LoginPageSteps(Hooks hooks) {
+    public LoginPageSteps(Hooks hooks, ScenarioContext scenarioContext) {
         this.loginPage = hooks.getLoginPage();
+        this.scenarioContext = scenarioContext;
     }
 
     @Given("the user is on the login page")
@@ -23,28 +25,32 @@ public class LoginPageSteps {
         // Assuming the driver is already on the login page
     }
 
-    @When("the user checks the page title")
-    public void the_user_checks_the_page_title() {
+    @When("the user fetches the page title")
+    public void the_user_fetches_the_page_title() {
         String actTitle = loginPage.getLoginPageTitle();
-        Assert.assertEquals(actTitle, AppConstants.LOGIN_PAGE_TITLE);
+        scenarioContext.setContext("LOGIN_PAGE_TITLE", actTitle);
     }
 
     @Then("the page title should be {string}")
     public void the_page_title_should_be(String expectedTitle) {
-        String actTitle = loginPage.getLoginPageTitle();
-        Assert.assertEquals(actTitle, expectedTitle);
+        Assert.assertEquals(scenarioContext.getContext("LOGIN_PAGE_TITLE"), expectedTitle);
+    }
+
+    @Then("the page title should not be empty")
+    public void the_page_title_should_not_be_empty() {
+        Assert.assertFalse("Page title should not be empty", scenarioContext.getContext("LOGIN_PAGE_TITLE").toString().isEmpty());
     }
 
     @When("the user checks the page URL")
     public void the_user_checks_the_page_url() {
         String actURL = loginPage.getLoginPageURL();
+        scenarioContext.setContext("LOGIN_PAGE_URL", actURL);
         Assert.assertTrue(actURL.contains(AppConstants.LOGIN_PAGE_FRACTION_URL));
     }
 
     @Then("the URL should contain {string}")
     public void the_url_should_contain(String fractionURL) {
-        String actURL = loginPage.getLoginPageURL();
-        Assert.assertTrue(actURL.contains(fractionURL));
+        Assert.assertTrue(scenarioContext.getContext("LOGIN_PAGE_URL").toString().contains(fractionURL));
     }
 
     @When("the user checks the forgot password link")
