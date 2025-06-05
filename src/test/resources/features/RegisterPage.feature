@@ -3,7 +3,7 @@ Feature: User Registration
   Background:
     Given the user navigates to the registration page
 
-  @regression @register
+  @regression @register @smoke
   Scenario Outline: Registering a new user with valid data
     When the user enters "<firstName>", "<lastName>", "<telephone>", "<password>" and subscribes "<subscribe>"
     Then the user registration should be successful

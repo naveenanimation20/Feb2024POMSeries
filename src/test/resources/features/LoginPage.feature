@@ -1,6 +1,6 @@
 Feature: Login Page Feature
 
-  @login @smoke @regression
+  @login @smoke @regression @naveen
   Scenario: Check login page title
     Given the user is on the login page
     When the user fetches the page title

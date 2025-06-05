@@ -5,6 +5,7 @@ import com.qa.opencart.pages.LoginPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
+import utils.BrowserContext;
 
 import java.util.Properties;
 
@@ -19,6 +20,12 @@ public class Hooks {
     public void setUp() {
         df = new DriverFactory();
         prop = df.initProp();
+
+        String browserName = BrowserContext.getBrowser();
+        if (browserName != null) {
+            prop.setProperty("browser", browserName);
+        }
+
         driver = df.initDriver(prop);
         loginPage = new LoginPage(driver);
     }

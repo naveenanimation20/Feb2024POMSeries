@@ -155,6 +155,10 @@
 					<threadCount>4</threadCount>
 					<forkCount>1</forkCount>
 					<reuseForks>true</reuseForks>
+
+					<suiteXmlFiles>
+						<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
 				</configuration>
 			</plugin>
 
